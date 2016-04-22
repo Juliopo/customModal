@@ -1,12 +1,32 @@
 {
-  "name": "customModal",
+  "name": "react-native-custom-modal",
   "version": "0.0.1",
-  "private": true,
+  "description": "Simple custom animations modal for react-native",
+  "main": "CustomModal.js",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nick/react-native-carousel.git"
+  },
+  "keywords": [
+    "react-native",
+    "custom",
+    "modal",
+    "custom-modal"
+  ],
+  "author": "Julio Jaramillo <juliopo@gmail.com> (https://github.com/Juliopo)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Juliopo/customModal/issues"
+  },
+  "homepage": "https://github.com/Juliopo/customModal",
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.24.1"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.4"
   }
 }
