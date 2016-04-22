@@ -5,7 +5,7 @@
 npm install react-native-custom-modal
 ```
 
-if you want save in your package `npm install react-native-custom-modal`
+if you want save in your package `npm install react-native-custom-modal --save`
 
 
 ### Props

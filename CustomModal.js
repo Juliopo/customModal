@@ -5,6 +5,7 @@ import React, {
   Text,
   Dimensions,
   View,
+  Modal,
   Animated
 } from 'react-native';
 
@@ -14,6 +15,9 @@ const deviceHeight = Dimensions.get('window').height
 export default class customModal extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      visible: false
+    }
     this.animationX = new Animated.Value(0)
     this.animationY = new Animated.Value(0)
     this.fadeAnimation = new Animated.Value(0)
@@ -50,30 +54,20 @@ export default class customModal extends Component {
             this.animationY.setValue(deviceHeight)
           break
     }
+
+    this.setState({visible: false})
   }
 
   componentWillMount() {
     this.getInitialConfig()
   }
 
-  componentDidUpdate() {
-    let { visible, animatedEntry, animatedLeave } = this.props
+  componentWillReceiveProps(props) {
+    let { visible, animatedEntry, animatedLeave } = props
     if(!animatedEntry) animatedEntry = 'default'
     if(!animatedLeave) animatedLeave = 'default'
 
-    if(visible) {
-      if(animatedEntry === 'rightToLeft' || animatedEntry === 'leftToRight') {
-        Animated.timing(this.animationX, {
-          toValue: 0,
-          duration: 300
-        }).start()
-      } else {
-        Animated.timing(this.animationY, {
-          toValue: 0,
-          duration: 300
-        }).start()
-      }
-    } else {
+    if(!visible) {
       switch (animatedLeave) {
         case 'leftToRight':
           Animated.timing(this.animationX, {
@@ -110,17 +104,47 @@ export default class customModal extends Component {
           }).start( () => this.getInitialConfig())
           break
       }
+    } else {
+      this.setState({visible: true})
+    }
+
+  }
+
+
+  componentDidUpdate() {
+    let { visible, animatedEntry, animatedLeave } = this.props
+    if(!animatedEntry) animatedEntry = 'default'
+    if(!animatedLeave) animatedLeave = 'default'
+
+    if(visible) {
+      if(animatedEntry === 'rightToLeft' || animatedEntry === 'leftToRight') {
+        Animated.timing(this.animationX, {
+          toValue: 0,
+          duration: 300
+        }).start()
+      } else {
+        Animated.timing(this.animationY, {
+          toValue: 0,
+          duration: 300
+        }).start()
+      }
     }
   }
 
 
   render() {
-    const { children } = this.props
-    return (
-      <Animated.View style={[styles.container, { left: this.animationX, top: this.animationY }]}>
-          { children }
-      </Animated.View>
-    )
+    const { children, visible } = this.props
+    if (this.state.visible) {
+      return (
+        <Modal visible={true} transparent={true} style={{flex:1}}>
+          <Animated.View style={[styles.container, { left: this.animationX, top: this.animationY }]}>
+              { children }
+          </Animated.View>
+        </Modal>
+      )
+    } else {
+      return null
+    }
   }
 }
 
