@@ -1,6 +1,6 @@
 {
   "name": "react-native-custom-modal",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple custom animations modal for react-native",
   "main": "CustomModal.js",
   "scripts": {
