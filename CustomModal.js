@@ -63,69 +63,70 @@ export default class customModal extends Component {
   }
 
   componentWillReceiveProps(props) {
-    let { visible, animatedEntry, animatedLeave } = props
+    let { visible, animatedEntry, animatedLeave, duration } = props
     if(!animatedEntry) animatedEntry = 'default'
     if(!animatedLeave) animatedLeave = 'default'
+    if(!duration) duration = 300
 
     if(!visible) {
       switch (animatedLeave) {
         case 'leftToRight':
           Animated.timing(this.animationX, {
             toValue: deviceWidth,
-            duration: 300
+            duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'rightToLeft':
           Animated.timing(this.animationX, {
             toValue: -deviceWidth,
-            duration: 300
+            duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'topToBottom':
           Animated.timing(this.animationY, {
             toValue: deviceHeight,
-            duration: 300
+            duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'bottomToTop':
           Animated.timing(this.animationY, {
             toValue: -deviceHeight,
-            duration: 300
+            duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         default:
           Animated.timing(this.animationY, {
             toValue: deviceHeight,
-            duration: 300
+            duration: duration
           }).start( () => this.getInitialConfig())
           break
       }
     } else {
       this.setState({visible: true})
     }
-
   }
 
 
   componentDidUpdate() {
-    let { visible, animatedEntry, animatedLeave } = this.props
+    let { visible, animatedEntry, animatedLeave, duration } = this.props
     if(!animatedEntry) animatedEntry = 'default'
     if(!animatedLeave) animatedLeave = 'default'
+    if(!duration) duration = 300
 
     if(visible) {
       if(animatedEntry === 'rightToLeft' || animatedEntry === 'leftToRight') {
         Animated.timing(this.animationX, {
           toValue: 0,
-          duration: 300
+          duration: duration
         }).start()
       } else {
         Animated.timing(this.animationY, {
           toValue: 0,
-          duration: 300
+          duration: duration
         }).start()
       }
     }
@@ -150,10 +151,8 @@ export default class customModal extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    flex:1,
     top: 0,
-    left: 0,
-    width: deviceWidth,
-    height: deviceHeight
+    left: 0
   }
 });

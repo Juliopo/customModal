@@ -1,6 +1,6 @@
 {
   "name": "react-native-custom-modal",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple custom animations modal for react-native",
   "main": "CustomModal.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "custom",
     "modal",
     "custom-modal"
+    "animation"
   ],
   "author": "Julio Jaramillo <juliopo@gmail.com> (https://github.com/Juliopo)",
   "license": "MIT",

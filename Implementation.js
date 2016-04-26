@@ -35,7 +35,7 @@ export default class Implementation extends Component {
         <TouchableWithoutFeedback onPress={() => this.setState({isCMShowing: true })}>
           <Text>Click me</Text>
         </TouchableWithoutFeedback>
-        <CustomModal  visible={this.state.isCMShowing} animatedLeave='leftToRight' animatedEntry='bottomToTop'>
+        <CustomModal visible={this.state.isCMShowing} animatedLeave='rightToLeft' animatedEntry='topToBottom' duration={400}>
           { this._contentForModal() }
         </CustomModal>
       </View>

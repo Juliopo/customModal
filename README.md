@@ -20,7 +20,9 @@ animatedEntry='leftToRight'
 animatedEntry='topToBottom'
 animatedEntry='bottomToTop'
 
-The defaults values if you don't specify the these props are animatedEntry='bottomToTop' and animatedLeave='topToBottom'
+duration={300} // Animation duration in milliseconds 
+
+The default values if you don't specify the props will be animatedEntry='bottomToTop' and animatedLeave='topToBottom'
 ```
 
 ### Usage example
@@ -63,7 +65,7 @@ export default class Implementation extends Component {
         <TouchableWithoutFeedback onPress={() => this.setState({isCMShowing: true })}>
           <Text>Click me</Text>
         </TouchableWithoutFeedback>
-        <CustomModal  visible={this.state.isCMShowing} animatedLeave='leftToRight' animatedEntry='bottomToTop'>
+        <CustomModal  visible={this.state.isCMShowing} duration={300} animatedLeave='leftToRight' animatedEntry='bottomToTop'>
           { this._contentForModal() }
         </CustomModal>
       </View>
