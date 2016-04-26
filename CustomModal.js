@@ -9,8 +9,7 @@ import React, {
   Animated
 } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width
-const deviceHeight = Dimensions.get('window').height
+
 
 export default class customModal extends Component {
   constructor(props) {
@@ -18,6 +17,8 @@ export default class customModal extends Component {
     this.state = {
       visible: false
     }
+    this.deviceWidth = Dimensions.get('window').width
+    this.deviceHeight = Dimensions.get('window').height
     this.animationX = new Animated.Value(0)
     this.animationY = new Animated.Value(0)
     this.fadeAnimation = new Animated.Value(0)
@@ -30,28 +31,28 @@ export default class customModal extends Component {
 
     switch (animatedEntry) {
       case 'leftToRight':
-        this.animationX.setValue(-deviceWidth)
+        this.animationX.setValue(-this.deviceWidth)
         this.animationY.setValue(0)
       break
 
         case 'rightToLeft':
-          this.animationX.setValue(deviceWidth)
+          this.animationX.setValue(this.deviceWidth)
           this.animationY.setValue(0)
         break
 
         case 'bottomToTop':
           this.animationX.setValue(0)
-          this.animationY.setValue(deviceHeight)
+          this.animationY.setValue(this.deviceHeight)
         break
 
           case 'topToBottom':
             this.animationX.setValue(0)
-            this.animationY.setValue(-deviceHeight)
+            this.animationY.setValue(-this.deviceHeight)
           break
 
           default:
             this.animationX.setValue(0)
-            this.animationY.setValue(deviceHeight)
+            this.animationY.setValue(this.deviceHeight)
           break
     }
 
@@ -72,35 +73,35 @@ export default class customModal extends Component {
       switch (animatedLeave) {
         case 'leftToRight':
           Animated.timing(this.animationX, {
-            toValue: deviceWidth,
+            toValue: this.deviceWidth,
             duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'rightToLeft':
           Animated.timing(this.animationX, {
-            toValue: -deviceWidth,
+            toValue: -this.deviceWidth,
             duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'topToBottom':
           Animated.timing(this.animationY, {
-            toValue: deviceHeight,
+            toValue: this.deviceHeight,
             duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         case 'bottomToTop':
           Animated.timing(this.animationY, {
-            toValue: -deviceHeight,
+            toValue: -this.deviceHeight,
             duration: duration
           }).start( () => this.getInitialConfig())
         break
 
         default:
           Animated.timing(this.animationY, {
-            toValue: deviceHeight,
+            toValue: this.deviceHeight,
             duration: duration
           }).start( () => this.getInitialConfig())
           break
@@ -132,13 +133,20 @@ export default class customModal extends Component {
     }
   }
 
+  changeOrientation() {
+    if(this.deviceWidth !== Dimensions.get('window').width) {
+      this.deviceWidth = Dimensions.get('window').width
+      this.deviceHeight = Dimensions.get('window').height
+    }
+  }
+
 
   render() {
     const { children, visible } = this.props
     if (this.state.visible) {
       return (
-        <Modal visible={true} transparent={true} style={{flex:1}}>
-          <Animated.View style={[styles.container, { left: this.animationX, top: this.animationY }]}>
+        <Modal visible={true} transparent={true} style={{flex:1}} >
+          <Animated.View onLayout={() => this.changeOrientation()} style={[styles.container, { left: this.animationX, top: this.animationY }]}>
               { children }
           </Animated.View>
         </Modal>
